@@ -1,0 +1,57 @@
+<section class="catalog-shell">
+  <aside class="filters-column">
+    <div class="filters-sticky">
+      <app-product-filters></app-product-filters>
+    </div>
+  </aside>
+
+  <main class="catalog-column">
+    <header class="catalog-header">
+      <div>
+        <p class="eyebrow">Norova Catalog</p>
+        <h1>Discover curated products built for modern living.</h1>
+        <p class="subcopy">Elegant essentials, premium picks, and thoughtful everyday upgrades.</p>
+      </div>
+      <div class="catalog-header__actions">
+        <div class="summary-pill">
+          <span>{{ (products$ | async)?.length ?? 0 }} products</span>
+        </div>
+        <button type="button" class="mobile-filter-button" (click)="toggleMobileFilters()">
+          Filter & Sort
+        </button>
+      </div>
+    </header>
+
+    @if (mobileFiltersOpen) {
+      <div class="mobile-filter-sheet" role="dialog" aria-label="Mobile filters">
+        <div class="mobile-filter-sheet__content">
+          <div class="mobile-filter-sheet__header">
+            <h2>Filters</h2>
+            <button type="button" class="sheet-close" (click)="toggleMobileFilters()">Close</button>
+          </div>
+          <app-product-filters></app-product-filters>
+        </div>
+      </div>
+    }
+
+    @if (products$ | async; as products) {
+      @if (products.length > 0) {
+        <div class="product-grid">
+          @for (product of products; track product.id) {
+            <app-product-card [product]="product" (addToCart)="addToCart($event)"></app-product-card>
+          }
+        </div>
+      } @else {
+        <div class="empty-state-card">
+          <h2>No results found</h2>
+          <p>Try broadening your search or resetting the active filters.</p>
+          <button type="button" class="reset-button">Reset Filters</button>
+        </div>
+      }
+    } @else {
+      <div class="empty-state-card loading-state">
+        <p>Loading catalog…</p>
+      </div>
+    }
+  </main>
+</section>

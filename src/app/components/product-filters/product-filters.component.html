@@ -1,0 +1,42 @@
+<section class="filters-panel" aria-label="Product filters">
+  <div class="filters-panel__header">
+    <div>
+      <p class="eyebrow">Filter & Sort</p>
+      <h2>Refine your view</h2>
+    </div>
+  </div>
+
+  <form [formGroup]="filterForm" class="filters-form">
+    <div class="field-group">
+      <label for="searchText">Search</label>
+      <input id="searchText" type="text" formControlName="searchText" placeholder="Search products" />
+    </div>
+
+    <div class="field-group">
+      <span class="field-label">Categories</span>
+      <div class="checkbox-group">
+        <label *ngFor="let category of availableCategories; let index = index" class="checkbox-item">
+          <input type="checkbox" [checked]="filterForm.controls.categories.at(index).value" (change)="toggleCategory(index)" />
+          <span>{{ category }}</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-group price-group">
+      <label for="minPrice">Min Price</label>
+      <input id="minPrice" type="number" formControlName="minPrice" min="0" />
+    </div>
+
+    <div class="field-group price-group">
+      <label for="maxPrice">Max Price</label>
+      <input id="maxPrice" type="number" formControlName="maxPrice" min="0" />
+    </div>
+
+    <div class="field-group">
+      <label for="sortOrder">Sort By</label>
+      <select id="sortOrder" formControlName="sortOrder">
+        <option *ngFor="let option of sortOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,17 @@
+<article class="product-card">
+  <div class="image-wrap">
+    <img [src]="product.imageUrl" [alt]="product.name" />
+  </div>
+  <div class="product-content">
+    <div class="product-topline">
+      <span class="category-chip">{{ product.category }}</span>
+      <span class="rating">★ {{ product.rating }}</span>
+    </div>
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <div class="product-footer">
+      <strong>$ {{ product.price | number: '1.2-2' }}</strong>
+      <button type="button" (click)="addToCart.emit(product)">Add to cart</button>
+    </div>
+  </div>
+</article>
